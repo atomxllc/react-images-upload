@@ -24,11 +24,7 @@ var _UploadIcon = require("./UploadIcon.svg");
 
 var _UploadIcon2 = _interopRequireDefault(_UploadIcon);
 
-var _add = require("../assets/add.svg");
-
-var _add2 = _interopRequireDefault(_add);
-
-var _close = require("../assets/close.svg");
+var _close = require("./assets/close.svg");
 
 var _close2 = _interopRequireDefault(_close);
 
