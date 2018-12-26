@@ -4,8 +4,7 @@ import "./index.css";
 import FlipMove from "react-flip-move";
 import UploadIcon from "./UploadIcon.svg";
 
-import addIcon from "../assets/add.svg";
-import closeIcon from "../assets/close.svg";
+import closeIcon from "./assets/close.svg";
 
 const styles = {
   display: "flex",
