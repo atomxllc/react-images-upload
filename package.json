@@ -8,6 +8,7 @@
     "url": "https://github.com/jakehartnell/react-images-upload"
   },
   "dependencies": {
+    "babel-preset-stage-2": "^6.24.1",
     "react": "^16.2.0",
     "react-flip-move": "^3.0.1"
   },

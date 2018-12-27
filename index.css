@@ -4,10 +4,7 @@
 
 .fileContainer {
   background: #fff;
-  box-shadow: 2px 2px 3px 0 rgba(0, 0, 0, 0.05);
   position: relative;
-  border-radius: 10px;
-  padding: 20px 0;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -20,6 +17,8 @@
   opacity: 0;
   position: absolute;
   z-index: -1;
+  width: 0;
+  height: 0;
 }
 
 .fileContainer p {
@@ -122,8 +121,8 @@
 }
 
 .fileContainer .uploadPictureContainer {
-  width: 100px;
-  height: 100px;
+  width: 80px;
+  height: 80px;
   margin: 10px;
   padding: 0;
   background: #edf2f6;

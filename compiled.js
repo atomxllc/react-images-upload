@@ -205,7 +205,7 @@ var ReactImageUploadComponent = function (_React$Component) {
     value: function renderErrors() {
       var _this4 = this;
 
-      var notAccepted = "";
+      var notAccepted = null;
       if (this.state.notAcceptedFileType.length > 0) {
         notAccepted = this.state.notAcceptedFileType.map(function (error, index) {
           return _react2.default.createElement(
@@ -332,16 +332,17 @@ var ReactImageUploadComponent = function (_React$Component) {
         },
         _react2.default.createElement(
           "div",
+          { className: "errorsContainer" },
+          this.renderErrors()
+        ),
+        label && this.renderLabel(),
+        _react2.default.createElement(
+          "div",
           { className: "fileContainer", style: this.props.fileContainerStyle },
           this.renderIcon(),
           _react2.default.createElement(
             "div",
             null,
-            _react2.default.createElement(
-              "div",
-              { className: "errorsContainer" },
-              this.renderErrors()
-            ),
             _react2.default.createElement(
               "button",
               {
@@ -352,7 +353,6 @@ var ReactImageUploadComponent = function (_React$Component) {
               },
               this.props.buttonText || _react2.default.createElement("div", { className: "chooseFileButtonImg" })
             ),
-            this.renderLabel(),
             _react2.default.createElement("input", {
               type: "file",
               ref: function ref(input) {

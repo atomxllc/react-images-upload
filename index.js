@@ -141,7 +141,7 @@ class ReactImageUploadComponent extends React.Component {
    Check if any errors && render
    */
   renderErrors() {
-    let notAccepted = "";
+    let notAccepted = null;
     if (this.state.notAcceptedFileType.length > 0) {
       notAccepted = this.state.notAcceptedFileType.map((error, index) => {
         return (
@@ -235,10 +235,11 @@ class ReactImageUploadComponent extends React.Component {
         className={"fileUploader " + this.props.className}
         style={this.props.style}
       >
+        <div className="errorsContainer">{this.renderErrors()}</div>
+        {label && this.renderLabel()}
         <div className="fileContainer" style={this.props.fileContainerStyle}>
           {this.renderIcon()}
           <div>
-            <div className="errorsContainer">{this.renderErrors()}</div>
             <button
               type={this.props.buttonType}
               className={"chooseFileButton " + this.props.buttonClassName}
@@ -247,7 +248,6 @@ class ReactImageUploadComponent extends React.Component {
             >
               {this.props.buttonText || <div className="chooseFileButtonImg" />}
             </button>
-            {this.renderLabel()}
             <input
               type="file"
               ref={input => (this.inputElement = input)}
