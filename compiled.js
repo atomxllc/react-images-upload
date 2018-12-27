@@ -267,6 +267,8 @@ var ReactImageUploadComponent = function (_React$Component) {
           this.props.label
         );
       }
+
+      return null;
     }
 
     /*
@@ -335,7 +337,7 @@ var ReactImageUploadComponent = function (_React$Component) {
           { className: "errorsContainer" },
           this.renderErrors()
         ),
-        label && this.renderLabel(),
+        this.renderLabel(),
         _react2.default.createElement(
           "div",
           { className: "fileContainer", style: this.props.fileContainerStyle },

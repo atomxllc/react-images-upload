@@ -191,6 +191,8 @@ class ReactImageUploadComponent extends React.Component {
         </p>
       );
     }
+
+    return null
   }
 
   /*
@@ -236,7 +238,7 @@ class ReactImageUploadComponent extends React.Component {
         style={this.props.style}
       >
         <div className="errorsContainer">{this.renderErrors()}</div>
-        {label && this.renderLabel()}
+        {this.renderLabel()}
         <div className="fileContainer" style={this.props.fileContainerStyle}>
           {this.renderIcon()}
           <div>
