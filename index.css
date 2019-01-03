@@ -80,8 +80,13 @@
   margin: 0 auto;
 }
 
-.fileContainer .chooseFileButton .chooseFileButtonImg:before,
-:after {
+.fileContainer .chooseFileButton .chooseFileButtonImg:before {
+  content: "";
+  position: absolute;
+  background-color: rgba(90, 132, 235, 1);
+}
+
+.fileContainer .chooseFileButton .chooseFileButtonImg:after {
   content: "";
   position: absolute;
   background-color: rgba(90, 132, 235, 1);
