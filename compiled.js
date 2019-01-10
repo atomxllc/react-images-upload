@@ -293,7 +293,16 @@ var ReactImageUploadComponent = function (_React$Component) {
     value: function renderPreviewPictures() {
       var _this5 = this;
 
+      var maxItemsCount = this.props.maxItemsCount;
+
+
       return this.state.pictures.map(function (picture, index) {
+        var className = "uploadPicture";
+
+        if (maxItemsCount && index >= maxItemsCount) {
+          className += " disabled";
+        }
+
         return _react2.default.createElement(
           "div",
           { key: index, className: "uploadPictureContainer" },
@@ -307,7 +316,7 @@ var ReactImageUploadComponent = function (_React$Component) {
             },
             _react2.default.createElement("img", { src: _close2.default })
           ),
-          _react2.default.createElement("img", { src: picture, className: "uploadPicture", alt: "preview" })
+          _react2.default.createElement("img", { src: picture, className: className, alt: "preview" })
         );
       });
     }
@@ -319,7 +328,17 @@ var ReactImageUploadComponent = function (_React$Component) {
   }, {
     key: "triggerFileUpload",
     value: function triggerFileUpload() {
-      this.inputElement.click();
+      var _props = this.props,
+          maxItemsCount = _props.maxItemsCount,
+          onMaxItemsOverflow = _props.onMaxItemsOverflow;
+      var files = this.state.files;
+
+
+      if (files.length >= maxItemsCount) {
+        onMaxItemsOverflow();
+      } else {
+        this.inputElement.click();
+      }
     }
   }, {
     key: "render",

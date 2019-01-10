@@ -192,7 +192,7 @@ class ReactImageUploadComponent extends React.Component {
       );
     }
 
-    return null
+    return null;
   }
 
   /*
@@ -209,7 +209,15 @@ class ReactImageUploadComponent extends React.Component {
   }
 
   renderPreviewPictures() {
+    const { maxItemsCount } = this.props;
+
     return this.state.pictures.map((picture, index) => {
+      let className = "uploadPicture";
+
+      if (maxItemsCount && index >= maxItemsCount) {
+        className += " disabled";
+      }
+
       return (
         <div key={index} className="uploadPictureContainer">
           <div
@@ -218,7 +226,7 @@ class ReactImageUploadComponent extends React.Component {
           >
             <img src={closeIcon} />
           </div>
-          <img src={picture} className="uploadPicture" alt="preview" />
+          <img src={picture} className={className} alt="preview" />
         </div>
       );
     });
@@ -228,7 +236,14 @@ class ReactImageUploadComponent extends React.Component {
    On button click, trigger input file to open
    */
   triggerFileUpload() {
-    this.inputElement.click();
+    const { maxItemsCount, onMaxItemsOverflow } = this.props;
+    const { files } = this.state;
+
+    if (files.length >= maxItemsCount) {
+      onMaxItemsOverflow();
+    } else {
+      this.inputElement.click();
+    }
   }
 
   render() {

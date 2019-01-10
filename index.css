@@ -147,7 +147,15 @@
   height: inherit;
 }
 
-.fileContainer .deleteImage {
+.fileContainer .uploadPictureContainer img.disabled {
+  -webkit-filter: grayscale(100%);
+  -moz-filter: grayscale(100%);
+  -o-filter: grayscale(100%);
+  -ms-filter: grayscale(100%);
+  filter: grayscale(100%);
+}
+
+.fileContainer .uploadPictureContainer  .deleteImage {
   position: absolute;
   top: 5px;
   right: 5px;
@@ -163,15 +171,16 @@
   align-items: center;
   -ms-flex-pack: center;
   justify-content: center;
+  z-index: 1;
 }
 
-.fileContainer .deleteImage > img {
+.fileContainer .uploadPictureContainer  .deleteImage > img {
   height: 11px;
   width: 11px;
   fill: #fff;
 }
 
-.fileContainer .deleteImage > img > svg {
+.fileContainer .uploadPictureContainer  .deleteImage > img > svg {
   fill: #fff;
 }
 
