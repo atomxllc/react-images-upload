@@ -18,7 +18,11 @@ class ReactImageUploadComponent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      pictures: props.defaultImage ? [props.defaultImage] : [],
+      pictures: props.value
+        ? props.value
+        : props.defaultImage
+        ? [props.defaultImage]
+        : [],
       files: [],
       notAcceptedFileType: [],
       notAcceptedFileSize: []
@@ -31,7 +35,7 @@ class ReactImageUploadComponent extends React.Component {
 
   componentDidUpdate(prevProps, prevState, snapshot) {
     if (prevState.files !== this.state.files) {
-      this.props.onChange(this.state.files, this.state.pictures);
+      this.props.onChange(this.state.pictures, this.state.files);
     }
   }
 
@@ -39,7 +43,9 @@ class ReactImageUploadComponent extends React.Component {
    Load image at the beggining if defaultImage prop exists
    */
   componentWillReceiveProps(nextProps) {
-    if (nextProps.defaultImage) {
+    if (nextProps.value) {
+      this.setState({ pictures: value });
+    } else if (nextProps.defaultImage) {
       this.setState({ pictures: [nextProps.defaultImage] });
     }
   }
@@ -87,12 +93,18 @@ class ReactImageUploadComponent extends React.Component {
 
       newFilesData.forEach(newFileData => {
         dataURLs.push(newFileData.dataURL);
-        files.push(newFileData.file);
+        // files.push(newFileData.file);
       });
 
-      this.setState({ pictures: dataURLs, files: files }, () => {
-        this.props.onChange(this.state.files, this.state.pictures);
-      });
+      this.setState(
+        {
+          pictures: dataURLs
+          // files: files
+        },
+        () => {
+          this.props.onChange(this.state.pictures, this.state.files);
+        }
+      );
     });
   }
 
@@ -125,16 +137,27 @@ class ReactImageUploadComponent extends React.Component {
    */
   removeImage(picture) {
     const removeIndex = this.state.pictures.findIndex(e => e === picture);
+
+    if (this.props.onRemoveImage) {
+      this.props.onRemoveImage(picture, removeIndex);
+    }
+
     const filteredPictures = this.state.pictures.filter(
       (e, index) => index !== removeIndex
     );
-    const filteredFiles = this.state.files.filter(
-      (e, index) => index !== removeIndex
-    );
+    // const filteredFiles = this.state.files.filter(
+    //   (e, index) => index !== removeIndex
+    // );
 
-    this.setState({ pictures: filteredPictures, files: filteredFiles }, () => {
-      this.props.onChange(this.state.files, this.state.pictures);
-    });
+    this.setState(
+      {
+        pictures: filteredPictures
+        // files: filteredFiles
+      },
+      () => {
+        this.props.onChange(this.state.pictures, this.state.files);
+      }
+    );
   }
 
   /*
@@ -209,7 +232,7 @@ class ReactImageUploadComponent extends React.Component {
   }
 
   renderPreviewPictures() {
-    const { maxItemsCount } = this.props;
+    const { maxItemsCount, ImageComponent } = this.props;
 
     return this.state.pictures.map((picture, index) => {
       let className = "uploadPicture";
@@ -226,7 +249,11 @@ class ReactImageUploadComponent extends React.Component {
           >
             <img src={closeIcon} />
           </div>
-          <img src={picture} className={className} alt="preview" />
+          {ImageComponent ? (
+            <ImageComponent src={picture} className={className} />
+          ) : (
+            <img src={picture} className={className} alt="preview" />
+          )}
         </div>
       );
     });
@@ -237,9 +264,9 @@ class ReactImageUploadComponent extends React.Component {
    */
   triggerFileUpload() {
     const { maxItemsCount, onMaxItemsOverflow } = this.props;
-    const { files } = this.state;
+    const { pictures } = this.state;
 
-    if (files.length >= maxItemsCount) {
+    if (pictures.length >= maxItemsCount) {
       onMaxItemsOverflow();
     } else {
       this.inputElement.click();
@@ -304,7 +331,7 @@ ReactImageUploadComponent.defaultProps = {
   errorClass: "",
   style: {},
   errorStyle: {},
-  singleImage: false,
+  singleImage: true,
   onChange: () => {},
   defaultImage: ""
 };

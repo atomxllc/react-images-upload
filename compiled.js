@@ -53,7 +53,7 @@ var ReactImageUploadComponent = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (ReactImageUploadComponent.__proto__ || Object.getPrototypeOf(ReactImageUploadComponent)).call(this, props));
 
     _this.state = {
-      pictures: props.defaultImage ? [props.defaultImage] : [],
+      pictures: props.value ? props.value : props.defaultImage ? [props.defaultImage] : [],
       files: [],
       notAcceptedFileType: [],
       notAcceptedFileSize: []
@@ -69,7 +69,7 @@ var ReactImageUploadComponent = function (_React$Component) {
     key: "componentDidUpdate",
     value: function componentDidUpdate(prevProps, prevState, snapshot) {
       if (prevState.files !== this.state.files) {
-        this.props.onChange(this.state.files, this.state.pictures);
+        this.props.onChange(this.state.pictures, this.state.files);
       }
     }
 
@@ -80,7 +80,9 @@ var ReactImageUploadComponent = function (_React$Component) {
   }, {
     key: "componentWillReceiveProps",
     value: function componentWillReceiveProps(nextProps) {
-      if (nextProps.defaultImage) {
+      if (nextProps.value) {
+        this.setState({ pictures: value });
+      } else if (nextProps.defaultImage) {
         this.setState({ pictures: [nextProps.defaultImage] });
       }
     }
@@ -135,11 +137,14 @@ var ReactImageUploadComponent = function (_React$Component) {
 
         newFilesData.forEach(function (newFileData) {
           dataURLs.push(newFileData.dataURL);
-          files.push(newFileData.file);
+          // files.push(newFileData.file);
         });
 
-        _this2.setState({ pictures: dataURLs, files: files }, function () {
-          _this2.props.onChange(_this2.state.files, _this2.state.pictures);
+        _this2.setState({
+          pictures: dataURLs
+          // files: files
+        }, function () {
+          _this2.props.onChange(_this2.state.pictures, _this2.state.files);
         });
       });
     }
@@ -184,15 +189,23 @@ var ReactImageUploadComponent = function (_React$Component) {
       var removeIndex = this.state.pictures.findIndex(function (e) {
         return e === picture;
       });
+
+      if (this.props.onRemoveImage) {
+        this.props.onRemoveImage(picture, removeIndex);
+      }
+
       var filteredPictures = this.state.pictures.filter(function (e, index) {
         return index !== removeIndex;
       });
-      var filteredFiles = this.state.files.filter(function (e, index) {
-        return index !== removeIndex;
-      });
+      // const filteredFiles = this.state.files.filter(
+      //   (e, index) => index !== removeIndex
+      // );
 
-      this.setState({ pictures: filteredPictures, files: filteredFiles }, function () {
-        _this3.props.onChange(_this3.state.files, _this3.state.pictures);
+      this.setState({
+        pictures: filteredPictures
+        // files: filteredFiles
+      }, function () {
+        _this3.props.onChange(_this3.state.pictures, _this3.state.files);
       });
     }
 
@@ -293,7 +306,9 @@ var ReactImageUploadComponent = function (_React$Component) {
     value: function renderPreviewPictures() {
       var _this5 = this;
 
-      var maxItemsCount = this.props.maxItemsCount;
+      var _props = this.props,
+          maxItemsCount = _props.maxItemsCount,
+          ImageComponent = _props.ImageComponent;
 
 
       return this.state.pictures.map(function (picture, index) {
@@ -316,7 +331,7 @@ var ReactImageUploadComponent = function (_React$Component) {
             },
             _react2.default.createElement("img", { src: _close2.default })
           ),
-          _react2.default.createElement("img", { src: picture, className: className, alt: "preview" })
+          ImageComponent ? _react2.default.createElement(ImageComponent, { src: picture, className: className }) : _react2.default.createElement("img", { src: picture, className: className, alt: "preview" })
         );
       });
     }
@@ -328,13 +343,13 @@ var ReactImageUploadComponent = function (_React$Component) {
   }, {
     key: "triggerFileUpload",
     value: function triggerFileUpload() {
-      var _props = this.props,
-          maxItemsCount = _props.maxItemsCount,
-          onMaxItemsOverflow = _props.onMaxItemsOverflow;
-      var files = this.state.files;
+      var _props2 = this.props,
+          maxItemsCount = _props2.maxItemsCount,
+          onMaxItemsOverflow = _props2.onMaxItemsOverflow;
+      var pictures = this.state.pictures;
 
 
-      if (files.length >= maxItemsCount) {
+      if (pictures.length >= maxItemsCount) {
         onMaxItemsOverflow();
       } else {
         this.inputElement.click();
@@ -417,7 +432,7 @@ ReactImageUploadComponent.defaultProps = {
   errorClass: "",
   style: {},
   errorStyle: {},
-  singleImage: false,
+  singleImage: true,
   onChange: function onChange() {},
   defaultImage: ""
 };
