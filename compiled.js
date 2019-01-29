@@ -81,7 +81,7 @@ var ReactImageUploadComponent = function (_React$Component) {
     key: "componentWillReceiveProps",
     value: function componentWillReceiveProps(nextProps) {
       if (nextProps.value) {
-        this.setState({ pictures: value });
+        this.setState({ pictures: nextProps.value });
       } else if (nextProps.defaultImage) {
         this.setState({ pictures: [nextProps.defaultImage] });
       }

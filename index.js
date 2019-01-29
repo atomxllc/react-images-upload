@@ -44,7 +44,7 @@ class ReactImageUploadComponent extends React.Component {
    */
   componentWillReceiveProps(nextProps) {
     if (nextProps.value) {
-      this.setState({ pictures: value });
+      this.setState({ pictures: nextProps.value });
     } else if (nextProps.defaultImage) {
       this.setState({ pictures: [nextProps.defaultImage] });
     }
