@@ -351,7 +351,13 @@ var ReactImageUploadComponent = function (_React$Component) {
       var pictures = this.state.pictures;
 
 
-      if (pictures.length >= maxItemsCount) {
+      var imgs = pictures;
+
+      imgs.filter(function (item) {
+        return typeof item === "string";
+      });
+
+      if (imgs.length >= maxItemsCount) {
         onMaxItemsOverflow();
       } else {
         this.inputElement.click();

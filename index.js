@@ -268,7 +268,11 @@ class ReactImageUploadComponent extends React.Component {
     const { maxItemsCount, onMaxItemsOverflow } = this.props;
     const { pictures } = this.state;
 
-    if (pictures.length >= maxItemsCount) {
+    const imgs = pictures;
+
+    imgs.filter(item => typeof item === "string");
+
+    if (imgs.length >= maxItemsCount) {
       onMaxItemsOverflow();
     } else {
       this.inputElement.click();
