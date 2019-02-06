@@ -241,6 +241,8 @@ class ReactImageUploadComponent extends React.Component {
         className += " disabled";
       }
 
+      if (typeof picture !== "string") return null;
+
       return (
         <div key={index} className="uploadPictureContainer">
           <div

@@ -318,6 +318,8 @@ var ReactImageUploadComponent = function (_React$Component) {
           className += " disabled";
         }
 
+        if (typeof picture !== "string") return null;
+
         return _react2.default.createElement(
           "div",
           { key: index, className: "uploadPictureContainer" },
