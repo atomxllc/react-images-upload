@@ -125,6 +125,11 @@ var ReactImageUploadComponent = function (_React$Component) {
           var _newArray = this.state.notAcceptedFileSize.slice();
           _newArray.push(f.name);
           this.setState({ notAcceptedFileSize: _newArray });
+
+          if (this.props.onImgSizeOverflow) {
+            onImgSizeOverflow();
+          }
+
           continue;
         }
 

@@ -81,6 +81,11 @@ class ReactImageUploadComponent extends React.Component {
         const newArray = this.state.notAcceptedFileSize.slice();
         newArray.push(f.name);
         this.setState({ notAcceptedFileSize: newArray });
+
+        if (this.props.onImgSizeOverflow) {
+          onImgSizeOverflow();
+        }
+
         continue;
       }
 
