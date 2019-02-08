@@ -379,11 +379,6 @@ var ReactImageUploadComponent = function (_React$Component) {
           className: "fileUploader " + this.props.className,
           style: this.props.style
         },
-        _react2.default.createElement(
-          "div",
-          { className: "errorsContainer" },
-          this.renderErrors()
-        ),
         this.renderLabel(),
         _react2.default.createElement(
           "div",
