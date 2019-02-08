@@ -127,7 +127,7 @@ var ReactImageUploadComponent = function (_React$Component) {
           this.setState({ notAcceptedFileSize: _newArray });
 
           if (this.props.onImgSizeOverflow) {
-            onImgSizeOverflow();
+            this.props.onImgSizeOverflow();
           }
 
           continue;
